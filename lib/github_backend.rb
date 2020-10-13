@@ -154,9 +154,16 @@ class GithubBackend
 	# Returns EventCollection
 	def issue_count_by_status(opts)
 		opts = OpenStruct.new(opts) unless opts.kind_of? OpenStruct
-		events = GithubDashing::EventCollection.new
+		events = Hash.new
+		events["skaffold"] = GithubDashing::EventCollection.new
+		events["minikube"] = GithubDashing::EventCollection.new
 		self.get_repos(opts).each do |repo|
 			begin
+			  repo_key = "minikube"
+        if repo == "GoogleContainerTools/skaffold"
+           repo_key = "skaffold"
+        end
+        logger.info "############# REPO KEY %s" % repo_key
 				issues = request('issues', [repo, {:since => opts.since,:state => 'all'}])
 				
 				# Filter to issues in the specified timeframe
@@ -172,7 +179,7 @@ class GithubBackend
 
 				issues.each do |issue|
 					state_desc = (issue.state == 'open') ? 'opened' : 'closed'
-					events << GithubDashing::Event.new({
+					events[repo_key] << GithubDashing::Event.new({
 						type: "issue_count_#{state_desc}",
 						datetime: issue.state == 'open' ? issue.created_at.to_datetime : issue.closed_at.to_datetime,
 						key: issue.state.dup,
@@ -183,7 +190,6 @@ class GithubBackend
 				Raven.capture_exception(exception)
 			end
 		end
-
 		return events
 	end
 
@@ -192,14 +198,20 @@ class GithubBackend
 	# Returns EventCollection
 	def pull_count_by_status(opts)
 		opts = OpenStruct.new(opts) unless opts.kind_of? OpenStruct
-		events = GithubDashing::EventCollection.new
+		events = Hash.new
+    events["skaffold"] = GithubDashing::EventCollection.new
+    events["minikube"] = GithubDashing::EventCollection.new
 		self.get_repos(opts).each do |repo|
 			begin
+			  repo_key = "minikube"
+        if repo == "GoogleContainerTools/skaffold"
+            repo_key = "skaffold"
+        end
 				pulls = request('pulls', [repo, {:state => 'all', :since => opts.since}])
 				pulls.select! {|pull|pull.created_at.to_datetime > opts.since.to_datetime}
 				pulls.each do |pull|
 					state_desc = (pull.state == 'open') ? 'opened' : 'closed'
-					events << GithubDashing::Event.new({
+					events[repo_key] << GithubDashing::Event.new({
 						type: "pull_count_#{state_desc}",
 						datetime: pull.created_at.to_datetime,
 						key: pull.state.dup,
@@ -230,7 +242,7 @@ class GithubBackend
 		opts = OpenStruct.new(opts) unless opts.kind_of? OpenStruct
 		repos = []
 		if opts.repos != nil
-			repos = repos.concat(opts.repos)
+			return repos.concat(opts.repos)
 		end
 		if opts.orgas != nil
 			opts.orgas.each do |orga|

@@ -1,6 +1,6 @@
 <% content_for(:title) { "Github Open Source Dashboard" } %>
 <div class="gridster highcontrast">
-  <h1 class="header">SilverStripe Contributions Dashboard</h1>
+  <h1 class="header">Container Dev-ex Contributions Dashboard</h1>
   <ul>
     <li data-row="1" data-col="1" data-sizex="2" data-sizey="4">
       <div 
@@ -11,47 +11,75 @@
     </li>
     <li data-row="1" data-col="3" data-sizex="2" data-sizey="1">
       <div 
-        data-id="pull_requests" 
+        data-id="pull_requests_skaffold"
         data-view="SeriesGraph" 
         data-renderer="bar"
         data-colors="#fff #888" 
-        data-title="Pulls opened this month" 
+        data-title="Pulls opened this month - Skaffold"
         data-subtitle="Projected monthly trend compared to last month" 
         data-padding-top="0.35"
         class="widget-graph widget-graph-large-change-rate">
       </div>
     </li>
+    <li data-row="1" data-col="4" data-sizex="2" data-sizey="1">
+          <div
+            data-id="pull_requests_minikube"
+            data-view="SeriesGraph"
+            data-renderer="bar"
+            data-colors="#fff #888"
+            data-title="Pulls opened this month - Minikube"
+            data-subtitle="Projected monthly trend compared to last month"
+            data-padding-top="0.35"
+            class="widget-graph widget-graph-large-change-rate">
+          </div>
+        </li>
     <li data-row="2" data-col="3" data-sizex="2" data-sizey="1">
       <div 
-        data-id="issues_opened" 
+        data-id="issues_opened_skaffold"
         data-view="SeriesGraph" 
         data-renderer="bar"
         data-colors="#fff #888" 
-        data-title="Issues opened this month" 
+        data-title="Issues opened this month - Skaffold"
         data-subtitle="Projected monthly trend compared to last month" 
         data-padding-top="0.35"
         class="widget-graph widget-graph-large-change-rate">
       </div>
     </li>
+     <li data-row="2" data-col="4" data-sizex="2" data-sizey="1">
+          <div
+            data-id="issues_opened_minikube"
+            data-view="SeriesGraph"
+            data-renderer="bar"
+            data-colors="#fff #888"
+            data-title="Issues opened this month - Minikube"
+            data-subtitle="Projected monthly trend compared to last month"
+            data-padding-top="0.35"
+            class="widget-graph widget-graph-large-change-rate">
+          </div>
+        </li>
     <li data-row="3" data-col="3" data-sizex="2" data-sizey="2">
       <div 
-        data-id="issues_closed" 
+        data-id="issues_closed_skaffold"
         data-view="SeriesGraph" 
         data-renderer="bar"
         data-colors="#fff #888" 
-        data-title="Issues closed this month" 
+        data-title="Issues closed this month - Skaffold"
         data-subtitle="Projected monthly trend compared to last month" 
         data-padding-top="0.35"
         class="widget-graph widget-graph-large-change-rate">
       </div>
     </li>
-    <li data-row="1" data-col="5" data-sizex="3" data-sizey="4">
-      <div 
-        data-id="travis" 
-        data-view="NestedList"
-        data-title="Travis Build Status">
-      </div>
-    </li>
+    <li data-row="3" data-col="4" data-sizex="2" data-sizey="2">
+          <div
+            data-id="issues_closed_minikube"
+            data-view="SeriesGraph"
+            data-renderer="bar"
+            data-colors="#fff #888"
+            data-title="Issues closed this month - Minikube"
+            data-subtitle="Projected monthly trend compared to last month"
+            data-padding-top="0.35"
+            class="widget-graph widget-graph-large-change-rate">
+          </div>
+        </li>
   </ul>
-  <footer data-id="meta_stats" data-view="Meta"></footer>
 </div>

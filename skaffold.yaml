@@ -1,0 +1,19 @@
+apiVersion: skaffold/v2beta7
+kind: Config
+metadata:
+  name: github-dashing
+build:
+  artifacts:
+  - image: github-dash
+    sync:
+      infer:
+        - 'assets/**/*'
+deploy:
+  kubectl:
+    manifests:
+    - k8s/*
+portForward:
+  - resourceType: deployment
+    resourceName: github-dash
+    port: 3030
+    localPort: 8080

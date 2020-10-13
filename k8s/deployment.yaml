@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: github-dash
+  labels:
+    app: github-dash
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: github-dash
+  template:
+    metadata:
+      labels:
+        app: github-dash
+    spec:
+      containers:
+      - name: github-dash
+        image: github-dash
+        ports:
+        - containerPort: 3030

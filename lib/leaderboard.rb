@@ -58,7 +58,6 @@ class Leaderboard
 				'commits' => 'commits',
 				'issues_comments' => 'issue comments',
 				'pulls_comments' => 'pull request comments',
-				'issues_comments' => 'issue comments',
 				'issues_opened' => 'opened issues',
 				'issues_closed' => 'closed issues',
 				'pulls_closed' => 'closed pull requests',
